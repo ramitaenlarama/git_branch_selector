@@ -15,15 +15,15 @@ local function get_remote_branches()
 	return branches
 end
 
--- Función para crear rama local
+-- Función para crear una rama local
 local function create_local_branch(branch, local_name)
 	local command = "git checkout -b " .. local_name .. " origin/" .. branch
 	os.execute(command)
 end
 
--- Función principal para mostrar el popup de selección
+-- Función principal que muestra el popup de selección
 function M.select_branches()
-	-- Primero, obtenemos las ramas remotas
+	-- Obtenemos las ramas remotas
 	local branches = get_remote_branches()
 
 	-- Si no hay ramas remotas, mostramos un mensaje
@@ -32,15 +32,14 @@ function M.select_branches()
 		return
 	end
 
-	-- Abrimos el selector de ramas con vim.ui.select
+	-- Usamos vim.ui.select para mostrar el popup de selección
 	vim.ui.select(branches, { prompt = "Select remote branches:" }, function(selected_branch)
 		if not selected_branch then
 			return
 		end
 
-		-- Pedimos un nombre local para la rama seleccionada
-		local default_name = selected_branch -- Nombre por defecto
-
+		-- Pedimos el nombre local de la rama seleccionada
+		local default_name = selected_branch
 		vim.ui.input(
 			{ prompt = "Local name for " .. selected_branch .. ": ", default = default_name },
 			function(local_name)
