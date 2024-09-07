@@ -55,5 +55,5 @@ function M.select_branches()
 	end)
 end
 
--- Asegurarse de retornar el módulo
+-- Retornar el módulo
 return M
